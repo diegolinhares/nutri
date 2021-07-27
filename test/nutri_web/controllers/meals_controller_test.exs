@@ -1,8 +1,6 @@
 defmodule NutriWeb.MealsControllerTest do
   use NutriWeb.ConnCase, async: true
 
-  import Nutri.Factory
-
   describe "create/2" do
     test "when all params are valid, creates the user", %{conn: conn} do
       # Arrange
