@@ -14,6 +14,16 @@ defmodule Nutri.Meal do
 
   def changeset(params) do
     %__MODULE__{}
+    |> changes(params)
+  end
+
+  def update_changeset(meal, params) do
+    meal
+    |> changes(params)
+  end
+
+  defp changes(meal, params) do
+    meal
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
     |> validate_number(:calories, greater_than: 0)
