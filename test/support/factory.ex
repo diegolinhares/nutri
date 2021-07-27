@@ -11,7 +11,6 @@ defmodule Nutri.Factory do
     }
   end
 
-  @spec meal_factory :: Nutri.Meal.t()
   def meal_factory do
     %Meal{
       id: 1,
