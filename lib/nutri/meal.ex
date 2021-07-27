@@ -4,6 +4,8 @@ defmodule Nutri.Meal do
 
   @required_fields [:description, :calories, :date]
 
+  @derive {Jason.Encoder, only: [:id] ++ @required_fields}
+
   schema "meals" do
     field :description, :string
     field :calories, :float
