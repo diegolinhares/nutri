@@ -2,6 +2,9 @@ defmodule NutriWeb.MealsController do
   use NutriWeb, :controller
 
   alias Nutri.Meal
+  alias NutriWeb.FallbackController
+
+  action_fallback FallbackController
 
   def create(conn, params) do
     with {:ok, %Meal{} = meal} <- Nutri.create_meal(params) do
