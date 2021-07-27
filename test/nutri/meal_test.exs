@@ -52,14 +52,9 @@ defmodule Nutri.MealTest do
       response = Meal.changeset(params)
 
       # Assert
-      assert %Changeset{
-               errors: [
-                 calories:
-                   {"must be greater than %{number}",
-                    [validation: :number, kind: :greater_than, number: 0]}
-               ],
-               valid?: false
-             } = response
+      expected_response = %{calories: ["must be greater than 0"]}
+
+      assert errors_on(response) == expected_response
     end
   end
 end
