@@ -13,6 +13,10 @@ defmodule NutriWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", NutriWeb do
+    resources "meals", MealsController, except: [:new, :edit]
+  end
+
   scope "/", NutriWeb do
     pipe_through :browser
 
