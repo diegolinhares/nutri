@@ -20,7 +20,7 @@ defmodule Nutri.Meals.CreateTest do
 
     test "when there are invalid params, returns an error" do
       # Arrange
-      params = build(:meal_params, %{calories: 0})
+      params = build(:meal_params, %{"calories" => 0})
 
       # Act
       response = Create.call(params)
