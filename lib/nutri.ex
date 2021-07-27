@@ -1,9 +1,11 @@
 defmodule Nutri do
-  @moduledoc """
-  Nutri keeps the contexts that define your domain
-  and business logic.
+  alias Nutri.Meals.Create, as: MealCreate
+  alias Nutri.Meals.Get, as: MealGet
+  alias Nutri.Meals.Update, as: MealUpdate
+  alias Nutri.Meals.Delete, as: MealDelete
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  defdelegate create_meal(params), to: MealCreate, as: :call
+  defdelegate get_meal_by_id(id), to: MealGet, as: :by_id
+  defdelegate update_meal(params), to: MealUpdate, as: :call
+  defdelegate delete_meal(params), to: MealDelete, as: :call
 end
