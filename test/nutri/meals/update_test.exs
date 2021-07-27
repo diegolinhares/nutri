@@ -20,7 +20,9 @@ defmodule Nutri.Meals.UpdateTest do
       response = Update.call(params)
 
       # Assert
-      assert {:ok, %Meal{calories: 1.0e3, date: ~U[2021-05-12 11:00:00Z], description: "Carne Bovina"}} = response
+      assert {:ok,
+              %Meal{calories: 1.0e3, date: ~U[2021-05-12 11:00:00Z], description: "Carne Bovina"}} =
+               response
     end
 
     test "when there are invalid params, returns an error" do

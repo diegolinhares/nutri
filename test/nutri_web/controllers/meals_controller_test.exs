@@ -6,12 +6,11 @@ defmodule NutriWeb.MealsControllerTest do
   describe "create/2" do
     test "when all params are valid, creates the user", %{conn: conn} do
       # Arrange
-      params =
-        %{
-          "description" => "Arroz Branco",
-          "calories" => "1000.0",
-          "date" => "2021-05-12 00:00:00.000001"
-        }
+      params = %{
+        "description" => "Arroz Branco",
+        "calories" => "1000.0",
+        "date" => "2021-05-12 00:00:00.000001"
+      }
 
       # Act
       response =
@@ -20,18 +19,23 @@ defmodule NutriWeb.MealsControllerTest do
         |> json_response(:created)
 
       # Assert
-      assert %{"meal" =>
-                %{"calories" => 1.0e3, "date" => "2021-05-12T00:00:00Z", "description" => "Arroz Branco", "id" => _id}} = response
+      assert %{
+               "meal" => %{
+                 "calories" => 1.0e3,
+                 "date" => "2021-05-12T00:00:00Z",
+                 "description" => "Arroz Branco",
+                 "id" => _id
+               }
+             } = response
     end
 
     test "when params are invalid, returns an error", %{conn: conn} do
       # Arrange
-      params =
-        %{
-          "description" => "Arroz Branco",
-          "calories" => "0",
-          "date" => "2021-05-12 00:00:00.000001"
-        }
+      params = %{
+        "description" => "Arroz Branco",
+        "calories" => "0",
+        "date" => "2021-05-12 00:00:00.000001"
+      }
 
       # Act
       response =

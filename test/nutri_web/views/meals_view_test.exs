@@ -11,13 +11,13 @@ defmodule NutriWeb.MealsViewTest do
 
     response = render(MealsView, "create.json", meal: meal)
 
-    assert %{meal:
-              %Nutri.Meal{
-                calories: 1.0e3,
-                date: ~U[2021-05-12 11:00:00Z],
-                description: "Arroz Branco",
-                id: 1
-              }
-            } = response
+    assert %{
+             meal: %Nutri.Meal{
+               calories: 1.0e3,
+               date: ~U[2021-05-12 11:00:00Z],
+               description: "Arroz Branco",
+               id: 1
+             }
+           } = response
   end
 end
