@@ -1,6 +1,10 @@
 defmodule NutriWeb.MealsControllerTest do
   use NutriWeb.ConnCase, async: true
 
+  alias Nutri.Meal
+
+  import Nutri.Factory
+
   describe "create/2" do
     test "when all params are valid, creates the user", %{conn: conn} do
       # Arrange
@@ -43,6 +47,43 @@ defmodule NutriWeb.MealsControllerTest do
 
       # Assert
       assert %{"message" => %{"calories" => ["must be greater than %{number}"]}} = response
+    end
+  end
+
+  describe "show/2" do
+    test "when all params are valid, creates the user", %{conn: conn} do
+      # Arrange
+      %Meal{id: id} = insert(:meal)
+
+      # Act
+      response =
+        conn
+        |> get(Routes.meals_path(conn, :show, id))
+        |> json_response(:ok)
+
+      # Assert
+      assert %{
+               "meal" => %{
+                 "calories" => 1.0e3,
+                 "date" => "2021-05-12T11:00:00Z",
+                 "description" => "Arroz Branco",
+                 "id" => _id
+               }
+             } = response
+    end
+
+    test "when params are invalid, returns an error", %{conn: conn} do
+      # Arrange
+      id = 9999
+
+      # Act
+      response =
+        conn
+        |> get(Routes.meals_path(conn, :show, id))
+        |> json_response(:not_found)
+
+      # Assert
+      assert %{"message" => "Not found Meal!"} = response
     end
   end
 end

@@ -5,6 +5,13 @@ defmodule NutriWeb.MealsView do
 
   def render("create.json", %{meal: %Meal{} = meal}) do
     %{
+      message: "Meal was created!",
+      meal: meal
+    }
+  end
+
+  def render("show.json", %{meal: %Meal{} = meal}) do
+    %{
       meal: meal
     }
   end
