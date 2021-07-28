@@ -15,4 +15,11 @@ defmodule NutriWeb.MealsView do
       meal: meal
     }
   end
+
+  def render("delete.json", %{meal: %Meal{} = meal}) do
+    %{
+      message: "Meal was deleted!",
+      meal: meal
+    }
+  end
 end

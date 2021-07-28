@@ -6,7 +6,7 @@ defmodule NutriWeb.MealsControllerTest do
   import Nutri.Factory
 
   describe "create/2" do
-    test "when all params are valid, creates the user", %{conn: conn} do
+    test "when all params are valid, creates the meal", %{conn: conn} do
       # Arrange
       params = %{
         "description" => "Arroz Branco",
@@ -51,7 +51,7 @@ defmodule NutriWeb.MealsControllerTest do
   end
 
   describe "show/2" do
-    test "when all params are valid, creates the user", %{conn: conn} do
+    test "when a meal exists, show its data", %{conn: conn} do
       # Arrange
       %Meal{id: id} = insert(:meal)
 
@@ -72,7 +72,7 @@ defmodule NutriWeb.MealsControllerTest do
              } = response
     end
 
-    test "when params are invalid, returns an error", %{conn: conn} do
+    test "when a meal does not exist, returns a not found message", %{conn: conn} do
       # Arrange
       id = 9999
 
@@ -80,6 +80,44 @@ defmodule NutriWeb.MealsControllerTest do
       response =
         conn
         |> get(Routes.meals_path(conn, :show, id))
+        |> json_response(:not_found)
+
+      # Assert
+      assert %{"message" => "Not found Meal!"} = response
+    end
+  end
+
+  describe "delete/2" do
+    test "when a meal exists, remove it", %{conn: conn} do
+      # Arrange
+      %Meal{id: id} = insert(:meal)
+
+      # Act
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :show, id))
+        |> json_response(:no_content)
+
+      # Assert
+      assert %{
+               "meal" => %{
+                 "calories" => 1.0e3,
+                 "date" => "2021-05-12T11:00:00Z",
+                 "description" => "Arroz Branco",
+                 "id" => _id
+               },
+               "message" => "Meal was deleted!"
+             } = response
+    end
+
+    test "when a meal does not exists, returns an error", %{conn: conn} do
+      # Arrange
+      id = 9999
+
+      # Act
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :delete, id))
         |> json_response(:not_found)
 
       # Assert
