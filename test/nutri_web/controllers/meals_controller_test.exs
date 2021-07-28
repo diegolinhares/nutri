@@ -87,6 +87,47 @@ defmodule NutriWeb.MealsControllerTest do
     end
   end
 
+  describe "update/2" do
+    test "when a meal exists, update it", %{conn: conn} do
+      # Arrange
+      %Meal{id: id} = insert(:meal)
+
+      params = %{description: "Coxinha de Frango"}
+
+      # Act
+      response =
+        conn
+        |> put(Routes.meals_path(conn, :update, id, params))
+        |> json_response(:ok)
+
+      # Assert
+      assert %{
+               "meal" => %{
+                 "calories" => 1.0e3,
+                 "date" => "2021-05-12T11:00:00Z",
+                 "description" => "Coxinha de Frango",
+                 "id" => _id
+               }
+             } = response
+    end
+
+    test "when a meal does not exists, returns an error", %{conn: conn} do
+      # Arrange
+      id = 9999
+
+      params = %{description: "Coxinha de Frango"}
+
+      # Act
+      response =
+        conn
+        |> put(Routes.meals_path(conn, :update, id, params))
+        |> json_response(:not_found)
+
+      # Assert
+      assert %{"message" => "Not found Meal!"} = response
+    end
+  end
+
   describe "delete/2" do
     test "when a meal exists, remove it", %{conn: conn} do
       # Arrange
