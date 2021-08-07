@@ -139,7 +139,7 @@ defmodule NutriWeb.MealsControllerTest do
       # Act
       response =
         conn
-        |> delete(Routes.meals_path(conn, :show, id))
+        |> delete(Routes.meals_path(conn, :delete, id))
         |> json_response(:no_content)
 
       # Assert
