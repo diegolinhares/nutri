@@ -15,4 +15,8 @@ defmodule Nutri.Error do
   def build_not_found_meal do
     build(:not_found, "Not found Meal!")
   end
+
+  def build_not_found_user do
+    build(:not_found, "Not found User!")
+  end
 end
