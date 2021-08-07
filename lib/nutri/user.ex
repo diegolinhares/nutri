@@ -16,6 +16,16 @@ defmodule Nutri.User do
 
   def changeset(params) do
     %__MODULE__{}
+    |> changes(params)
+  end
+
+  def update_changeset(user, params) do
+    user
+    |> changes(params)
+  end
+
+  defp changes(user, params) do
+    user
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
     |> validate_length(:cpf, is: 11)

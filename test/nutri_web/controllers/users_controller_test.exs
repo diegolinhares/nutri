@@ -85,4 +85,40 @@ defmodule NutriWeb.UsersControllerTest do
       assert %{"message" => "Not found User!"} = response
     end
   end
+
+  describe "update/2" do
+    test "when a user exists, update it", %{conn: conn} do
+      # Arrange
+      %User{id: id} = insert(:user)
+
+      params = %{name: "Sherlock Bot"}
+
+      # Act
+      response =
+        conn
+        |> put(Routes.users_path(conn, :update, id, params))
+        |> json_response(:ok)
+
+      # Assert
+      assert %{
+               "user" => %{"name" => "Sherlock Bot"}
+             } = response
+    end
+
+    test "when a user does not exists, returns an error", %{conn: conn} do
+      # Arrange
+      id = 9999
+
+      params = %{}
+
+      # Act
+      response =
+        conn
+        |> put(Routes.users_path(conn, :update, id, params))
+        |> json_response(:not_found)
+
+      # Assert
+      assert %{"message" => "Not found User!"} = response
+    end
+  end
 end
