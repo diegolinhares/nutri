@@ -31,4 +31,12 @@ defmodule Nutri.Factory do
       cpf: "00000000000"
     }
   end
+
+  def user_params_factory do
+    %{
+      "name" => "James Bot",
+      "email" => "jamesbot@bots.com",
+      "cpf" => "00000000000"
+    }
+  end
 end

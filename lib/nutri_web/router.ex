@@ -15,6 +15,7 @@ defmodule NutriWeb.Router do
 
   scope "/api", NutriWeb do
     resources "meals", MealsController, except: [:new, :edit]
+    resources "users", UsersController, except: [:new, :edit]
   end
 
   scope "/", NutriWeb do
