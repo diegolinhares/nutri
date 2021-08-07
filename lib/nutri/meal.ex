@@ -2,7 +2,7 @@ defmodule Nutri.Meal do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required_fields [:description, :calories, :date]
+  @required_fields [:description, :calories, :date, :user_id]
 
   @derive {Jason.Encoder, only: [:id] ++ @required_fields}
 
@@ -10,6 +10,8 @@ defmodule Nutri.Meal do
     field :description, :string
     field :calories, :float
     field :date, :utc_datetime
+
+    belongs_to :user, Nutri.User
   end
 
   def changeset(params) do
@@ -27,5 +29,6 @@ defmodule Nutri.Meal do
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
     |> validate_number(:calories, greater_than: 0)
+    |> foreign_key_constraint(:user_id)
   end
 end

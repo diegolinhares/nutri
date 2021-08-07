@@ -8,10 +8,13 @@ defmodule NutriWeb.MealsControllerTest do
   describe "create/2" do
     test "when all params are valid, creates the meal", %{conn: conn} do
       # Arrange
+      user = insert(:user)
+
       params = %{
         "description" => "Arroz Branco",
         "calories" => "1000.0",
-        "date" => "2021-05-12 00:00:00.000001"
+        "date" => "2021-05-12 00:00:00.000001",
+        "user_id" => user.id
       }
 
       # Act
