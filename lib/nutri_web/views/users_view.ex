@@ -15,4 +15,11 @@ defmodule NutriWeb.UsersView do
       user: user
     }
   end
+
+  def render("delete.json", %{user: %User{} = user}) do
+    %{
+      message: "User was deleted!",
+      user: user
+    }
+  end
 end

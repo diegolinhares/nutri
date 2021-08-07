@@ -121,4 +121,42 @@ defmodule NutriWeb.UsersControllerTest do
       assert %{"message" => "Not found User!"} = response
     end
   end
+
+  describe "delete/2" do
+    test "when a user exists, remove it", %{conn: conn} do
+      # Arrange
+      %User{id: id} = insert(:user)
+
+      # Act
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, id))
+        |> json_response(:no_content)
+
+      # Assert
+      assert %{
+               "message" => "User was deleted!",
+               "user" => %{
+                 "id" => _id,
+                 "cpf" => "00000000000",
+                 "email" => "jamesbot@bots.com",
+                 "name" => "James Bot"
+               }
+             } = response
+    end
+
+    test "when a user does not exists, returns an error", %{conn: conn} do
+      # Arrange
+      id = 9999
+
+      # Act
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, id))
+        |> json_response(:not_found)
+
+      # Assert
+      assert %{"message" => "Not found User!"} = response
+    end
+  end
 end
